@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+  <title>The Ukraine War — Europe's Largest Conflict Since 1945</title>
+  <meta name="description" content="An interactive visualisation of the Russia-Ukraine War (2022–present). Timeline, key players, IR theories, and analysis.">
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'%3E%3Crect width='1200' height='630' fill='%23020617'/%3E%3Ctext x='600' y='260' text-anchor='middle' font-family='sans-serif' font-size='64' font-weight='bold' fill='%23F8FAFC'%3EThe Ukraine War%3C/text%3E%3Ctext x='600' y='340' text-anchor='middle' font-family='sans-serif' font-size='32' fill='%23FFD700'%3E2022 %26#8212; Ongoing%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#020617">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='16' height='32' fill='%230057B7'/%3E%3Crect x='16' width='16' height='32' fill='%23FFD700'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Cloudflare Web Analytics -->
+  <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1fa08667fb394a6e8e4421a7f947dfe7"}'></script>
+  <!-- End Cloudflare Web Analytics -->
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <nav class="navbar" id="navbar">
+    <a href="#" class="navbar-logo">Ukraine<span>War</span></a>
+    <ul class="navbar-links" id="navLinks">
+      <li><a href="#stats">Numbers</a></li>
+      <li><a href="#timeline">Timeline</a></li>
+      <li><a href="#simulation">Data</a></li>
+      <li><a href="#players">Players</a></li>
+      <li><a href="#theories">Theories</a></li>
+      <li><a href="#levels">Analysis</a></li>
+      <li><a href="#questions">Questions</a></li>
+      <li><a href="#sources" class="navbar-cta">Sources</a></li>
+    </ul>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <img src="Ukraine_War_Images/10_zelenskyy_bucha_crop.jpg" alt="" class="hero-bg-img" loading="eager">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-tagline">February 24, 2022 — Ongoing</div>
+      <h1 class="hero-title">The Ukraine<br><span class="accent">War</span></h1>
+      <p class="hero-subtitle">Europe's largest armed conflict since World War II — a crisis that has reshaped the international order, redefined alliance politics, and tested every major theory of International Relations.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="hero-stat-value">10,500+</div><div class="hero-stat-label">Civilian Deaths</div></div>
+        <div class="hero-stat"><div class="hero-stat-value">8.2M</div><div class="hero-stat-label">Refugees</div></div>
+        <div class="hero-stat"><div class="hero-stat-value">1,200km</div><div class="hero-stat-label">Front Line</div></div>
+        <div class="hero-stat"><div class="hero-stat-value">3+ yrs</div><div class="hero-stat-label">Ongoing War</div></div>
+      </div>
+    </div>
+    <div class="hero-scroll"><span>Scroll</span><div class="hero-scroll-line"></div></div>
+  </section>
+
+  <div class="marquee-container">
+    <div class="marquee" id="marquee">
+      <div class="marquee-item">Kyiv</div><div class="marquee-item">Mariupol</div><div class="marquee-item">Kharkiv</div><div class="marquee-item">Kherson</div>
+      <div class="marquee-item">Bucha</div><div class="marquee-item">Azovstal</div><div class="marquee-item">Crimea</div><div class="marquee-item">Donbas</div>
+      <div class="marquee-item">Kyiv</div><div class="marquee-item">Mariupol</div><div class="marquee-item">Kharkiv</div><div class="marquee-item">Kherson</div>
+      <div class="marquee-item">Bucha</div><div class="marquee-item">Azovstal</div><div class="marquee-item">Crimea</div><div class="marquee-item">Donbas</div>
+    </div>
+  </div>
+
+  <section class="section section-stats" id="stats">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">01</div>
+        <h2 class="section-title">By the Numbers</h2>
+        <p class="section-subtitle">The human, strategic, and material scale of the war</p>
+      </div>
+      <div class="stats-grid" id="statsGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-timeline" id="timeline">
+    <div class="timeline-sticky">
+      <div class="timeline-layout">
+        <div class="timeline-label">
+          <div class="timeline-label-num">02</div>
+          <div class="timeline-label-title">Timeline</div>
+        </div>
+        <div class="timeline-scroll-wrap">
+          <div class="timeline" id="timelineContainer"></div>
+          <div class="timeline-scroll-end">Continuing ▼</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="timeline-progress" id="timelineProgress"><div class="timeline-progress-fill" id="timelineProgressFill"></div></div>
+
+  <section class="section section-sim" id="simulation" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">03</div>
+        <h2 class="section-title">War Data</h2>
+        <p class="section-subtitle">Metrics that measure the cost and scale of the conflict</p>
+      </div>
+      <div class="sim-grid" id="simGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-players" id="players">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">04</div>
+        <h2 class="section-title">Key Players</h2>
+        <p class="section-subtitle">Leaders, commanders, and institutions shaping the war</p>
+      </div>
+      <div style="display:flex;gap:20px;align-items:center;margin-bottom:32px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+        <img src="Ukraine_War_Images/22_zelenskyy_official.jpg" alt="" style="width:120px;height:120px;object-fit:cover;border-radius:50%;border:3px solid var(--accent2);filter:grayscale(.2);flex-shrink:0">
+        <div>
+          <div style="font-family:var(--font-display);font-size:1.3rem;letter-spacing:2px;color:var(--text)">President Volodymyr Zelenskyy</div>
+          <div style="font-size:.8rem;color:var(--muted);margin-top:4px;line-height:1.5">"The fight is here. I need ammunition, not a ride." — Zelenskyy's refusal of US evacuation offer, Feb 26, 2022</div>
+        </div>
+      </div>
+      <div class="players-grid" id="playersGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-theories" id="theories">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">05</div>
+        <h2 class="section-title">IR Frameworks</h2>
+        <p class="section-subtitle">How International Relations theories explain the war</p>
+      </div>
+      <div class="theories-grid" id="theoriesGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-levels" id="levels" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">06</div>
+        <h2 class="section-title">Levels of Analysis</h2>
+        <p class="section-subtitle">Individual, state, and systemic perspectives on the war</p>
+      </div>
+      <div class="levels-grid" id="levelsGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-questions" id="questions">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">07</div>
+        <h2 class="section-title">Key Questions</h2>
+        <p class="section-subtitle">The debates that define how we understand the war</p>
+      </div>
+      <div class="questions-grid" id="questionsGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-legacy" id="legacy">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">08</div>
+        <h2 class="section-title">Impact & Legacy</h2>
+        <p class="section-subtitle">How the war is transforming international politics</p>
+      </div>
+      <div class="legacy-grid" id="legacyGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section-sources" id="sources">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-number">09</div>
+        <h2 class="section-title">Sources & References</h2>
+        <p class="section-subtitle">Academic works, reports, and policy documents</p>
+      </div>
+      <div class="sources-grid" id="sourcesGrid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo">Ukraine War</div>
+    <div class="footer-divider"></div>
+    <p class="footer-desc">An interactive visualisation drawing on International Relations scholarship and verified open-source data.</p>
+    <p class="footer-credit">Content from IR knowledge base. Data: UN OHCHR, UNHCR, World Bank, Kiel Institute.</p>
+  </footer>
+
+  <!-- data.js loads synchronously — UW is available immediately after this line -->
+  <script src="data.js"></script>
+  <script>
+  // =============================================
+  // Data Renderer — runs synchronously, UW guaranteed
+  // =============================================
+  function render() {
+    // --- Stats ---
+    var sg = document.getElementById('statsGrid');
+    if (sg && typeof UW !== 'undefined') {
+      sg.innerHTML = UW.stats.map(function(s) {
+        return '<div class="stat-card"><div class="stat-icon">' + s.icon + '</div><div class="stat-value" data-target="' + s.value + '" data-suffix="' + s.suffix + '">0</div><div class="stat-label">' + s.label + '</div><div class="stat-citation">' + s.citation + '</div></div>';
+      }).join('');
+    }
+
+    // --- Timeline ---
+    var tc = document.getElementById('timelineContainer');
+    if (tc && typeof UW !== 'undefined') {
+      var html = '<div class="timeline-line"></div><div class="timeline-track">';
+      for (var i = 0; i < UW.timeline.length; i++) {
+        var t = UW.timeline[i];
+        var ih = t.image ? '<img src="' + t.image + '" alt="" class="timeline-image" loading="lazy">' : '';
+        var qh = t.quote ? '<div class="timeline-quote"><div class="timeline-quote-text">' + t.quote.text + '</div><div class="timeline-quote-source">' + t.quote.source + '</div></div>' : '';
+        html += '<div class="timeline-item"><div class="timeline-marker"></div><div class="timeline-card"><div class="timeline-date">' + t.date + '</div><div class="timeline-header"><div class="timeline-event">' + t.event + '</div><span class="timeline-tag">' + t.type + '</span></div><div class="timeline-detail">' + t.detail + '</div>' + qh + ih + '</div></div>';
+      }
+      html += '</div>';
+      tc.innerHTML = html;
+    }
+
+    // --- Simulation (morph card — single card cycles through all data) ---
+    // Empty container; JS builds the morph card inside initWarDataMorph
+
+    // --- Players ---
+    var pg = document.getElementById('playersGrid');
+    if (pg && typeof UW !== 'undefined') {
+      pg.innerHTML = UW.players.map(function(p) {
+        var dh = p.riskDimensions ? '<div class="player-dims">' + p.riskDimensions.map(function(d) { return '<div class="player-dim"><div class="player-dim-label">' + d.label + '</div><div class="player-dim-bar"><div class="player-dim-fill" data-width="' + d.value + '"></div></div></div>'; }).join('') + '</div>' : '';
+        var qh = p.quote ? '<div class="player-quote"><div class="player-quote-text">' + p.quote + '</div></div>' : '';
+        var th = p.theoryLink ? '<div class="player-theory">' + p.theoryLink + '</div>' : '';
+        var sh = p.source ? '<div class="player-source">' + p.source + '</div>' : '';
+        return '<div class="player-card"><div class="player-name">' + p.name + '</div><div class="player-role">' + p.role + '</div><div class="player-trait">' + p.trait + '</div>' + qh + th + dh + sh + '</div>';
+      }).join('');
+    }
+
+    // --- Theories ---
+    var tg = document.getElementById('theoriesGrid');
+    if (tg && typeof UW !== 'undefined') {
+      tg.innerHTML = UW.theories.map(function(t) { return '<div class="theory-card" style="--c: ' + t.color + '"><div class="theory-header"><div class="theory-icon">' + t.icon + '</div><div><div class="theory-name">' + t.name + '</div><div class="theory-tag">' + t.tag + '</div></div></div><div class="theory-explanation">' + t.explanation + '</div><div class="theory-application">' + t.application + '</div><div class="theory-ref">' + t.reference + '</div></div>'; }).join('');
+    }
+
+    // --- Levels ---
+    var lg = document.getElementById('levelsGrid');
+    if (lg && typeof UW !== 'undefined') {
+      lg.innerHTML = UW.levels.map(function(l) { return '<div class="level-card" style="--c: ' + l.color + '"><div class="level-icon">' + l.icon + '</div><div class="level-name">' + l.level + '</div><div class="level-focus">' + l.focus + '</div><div class="level-question">' + l.question + '</div><div class="level-explanation">' + l.explanation + '</div><div class="level-application">' + l.application + '</div><div class="level-source">' + l.source + '</div></div>'; }).join('');
+    }
+
+    // --- Questions ---
+    var qg = document.getElementById('questionsGrid');
+    if (qg && typeof UW !== 'undefined') {
+      qg.innerHTML = UW.questions.map(function(q) { return '<div class="question-card"><div class="question-q">' + q.q + '</div><div class="question-a">' + q.a + '</div><div class="question-tags">' + q.tags.map(function(t) { return '<span class="question-tag">' + t + '</span>'; }).join('') + '</div><div class="question-source">' + q.source + '</div></div>'; }).join('');
+    }
+
+    // --- Sources ---
+    var srcg = document.getElementById('sourcesGrid');
+    if (srcg && typeof UW !== 'undefined') {
+      srcg.innerHTML = UW.sources.map(function(s) { return '<div class="source-card"><div class="source-title">' + s.title + '</div><div class="source-meta">' + s.author + ' (' + s.year + ')</div><div class="source-course">' + s.course + '</div><div class="source-relevance">' + s.relevance + '</div><span class="source-type">' + s.type + '</span></div>'; }).join('');
+    }
+
+    // --- Legacy ---
+    var lcg = document.getElementById('legacyGrid');
+    if (lcg && typeof UW !== 'undefined') {
+      lcg.innerHTML = UW.legacy.map(function(l) { return '<div class="legacy-card"><div class="legacy-icon">' + l.icon + '</div><div class="legacy-header"><div class="legacy-title">' + l.title + '</div><div class="legacy-date">' + l.date + '</div></div><div class="legacy-desc">' + l.description + '</div><div class="legacy-impact">' + l.impact + '</div><div class="legacy-source">' + l.source + '</div></div>'; }).join('');
+    }
+  }
+  render();
+
+  // --- Set timeline section height for horizontal scroll ---
+  (function() {
+    var tlSection = document.querySelector('.section-timeline');
+    var label = tlSection && tlSection.querySelector('.timeline-label');
+    var track = document.querySelector('#timelineContainer .timeline-track');
+    var items = track && track.querySelectorAll('.timeline-item');
+    if (tlSection && track && items && items.length) {
+      var first = items[0].getBoundingClientRect();
+      var last = items[items.length - 1].getBoundingClientRect();
+      var totalSpan = last.right - first.left;
+      var labelW = label ? label.offsetWidth : 0;
+      var visibleW = window.innerWidth - labelW;
+      var extra = Math.max(0, totalSpan - visibleW + 120);
+      tlSection.style.height = (window.innerHeight + extra) + 'px';
+    }
+  })();
+  </script>
+
+  <script src="script.js" defer></script>
+
+</body>
+</html>
