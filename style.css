@@ -58,13 +58,21 @@ a:hover{color:var(--accent2)}
 .section-title{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,4rem);letter-spacing:3px;text-transform:uppercase;color:var(--text);margin-bottom:12px;line-height:1}
 .section-subtitle{font-size:1rem;color:var(--text2);max-width:500px;margin:0 auto;line-height:1.7}
 
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2px;background:var(--border)}
-.stat-card{background:var(--bg2);padding:40px 24px;text-align:center;transition:background .3s,transform .3s;cursor:default}
+.stats-grid{max-width:800px;margin:0 auto}
+.war-duration{text-align:center;padding:40px 24px;margin-bottom:20px}
+.duration-display{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;font-family:var(--font-display)}
+.duration-unit{display:inline-flex;flex-direction:column;align-items:center;line-height:1;gap:4px}
+.duration-num{font-size:clamp(2.5rem,6vw,4.5rem);color:var(--accent2);letter-spacing:3px}
+.duration-unit .duration-num + span{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:2px}
+.duration-sep{font-size:clamp(2rem,5vw,3.5rem);color:var(--muted);margin:0 2px;animation:pulseSep 1.5s ease-in-out infinite}
+@keyframes pulseSep{0%,100%{opacity:.3}50%{opacity:.8}}
+.duration-label{font-family:var(--font-mono);font-size:.8rem;color:var(--text2);letter-spacing:3px;text-transform:uppercase;margin-top:16px;opacity:.7}
+.stats-grid-inner{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2px;background:var(--border)}
+.stat-card{background:var(--bg2);padding:32px 20px;text-align:center;transition:background .3s,transform .3s;cursor:default}
 .stat-card:hover{background:var(--bg3);transform:translateY(-2px)}
-.stat-icon{font-size:1.5rem;margin-bottom:12px}
-.stat-value{font-family:var(--font-display);font-size:2.8rem;color:var(--accent2);letter-spacing:2px;line-height:1;margin-bottom:4px}
-.stat-label{font-size:.75rem;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
-.stat-citation{font-size:.65rem;color:var(--muted);line-height:1.4;max-width:220px;margin:0 auto}
+.stat-icon{font-size:1.5rem;margin-bottom:8px}
+.stat-value{font-family:var(--font-display);font-size:2rem;color:var(--accent2);letter-spacing:2px;line-height:1;margin-bottom:4px}
+.stat-label{font-size:.7rem;color:var(--text2);text-transform:uppercase;letter-spacing:1.5px}
 
 /* --- Timeline: sticky horizontal scroll --- */
 .section-timeline{position:relative;padding:0;border:0;overflow:visible;min-height:100vh}

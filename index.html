@@ -192,12 +192,56 @@
   // Data Renderer — runs synchronously, UW guaranteed
   // =============================================
   function render() {
-    // --- Stats ---
+    // --- War Duration Counter ---
     var sg = document.getElementById('statsGrid');
     if (sg && typeof UW !== 'undefined') {
-      sg.innerHTML = UW.stats.map(function(s) {
-        return '<div class="stat-card"><div class="stat-icon">' + s.icon + '</div><div class="stat-value" data-target="' + s.value + '" data-suffix="' + s.suffix + '">0</div><div class="stat-label">' + s.label + '</div><div class="stat-citation">' + s.citation + '</div></div>';
-      }).join('');
+      var start = UW.hero.eventStart;
+      function updateCounter() {
+        var now = new Date();
+        var diff = now - start;
+        var totalSeconds = Math.floor(diff / 1000);
+        var totalMinutes = Math.floor(totalSeconds / 60);
+        var totalHours = Math.floor(totalMinutes / 60);
+        var totalDays = Math.floor(totalHours / 24);
+
+        var years = now.getFullYear() - start.getFullYear();
+        var monthDiff = now.getMonth() - start.getMonth();
+        if (monthDiff < 0) { years--; monthDiff += 12; }
+        var months = monthDiff;
+        var dayDiff = now.getDate() - start.getDate();
+        if (dayDiff < 0) {
+          var prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+          dayDiff += prevMonth.getDate();
+          months--;
+          if (months < 0) { months += 12; years--; }
+        }
+        var days = dayDiff;
+        var hours = totalHours % 24;
+        var minutes = totalMinutes % 60;
+
+        sg.innerHTML =
+          '<div class="war-duration">' +
+            '<div class="duration-display">' +
+              '<span class="duration-unit"><span class="duration-num">' + years + '</span> yr</span>' +
+              '<span class="duration-sep">:</span>' +
+              '<span class="duration-unit"><span class="duration-num">' + String(months).padStart(2,'0') + '</span> mo</span>' +
+              '<span class="duration-sep">:</span>' +
+              '<span class="duration-unit"><span class="duration-num">' + String(days).padStart(2,'0') + '</span> days</span>' +
+              '<span class="duration-sep">:</span>' +
+              '<span class="duration-unit"><span class="duration-num">' + String(hours).padStart(2,'0') + '</span> hr</span>' +
+              '<span class="duration-sep">:</span>' +
+              '<span class="duration-unit"><span class="duration-num">' + String(minutes).padStart(2,'0') + '</span> min</span>' +
+            '</div>' +
+            '<div class="duration-label">Since February 24, 2022</div>' +
+          '</div>' +
+          '<div class="stats-grid-inner">' +
+          UW.stats.map(function(s) {
+            return '<div class="stat-card"><div class="stat-icon">' + s.icon + '</div><div class="stat-value">' + s.value + '</div><div class="stat-label">' + s.label + '</div></div>';
+          }).join('') +
+          '</div>';
+      }
+      updateCounter();
+      setInterval(updateCounter, 60000);
     }
 
     // --- Timeline ---

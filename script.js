@@ -268,56 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     })();
 
-    // --- Stat Counter (power2-out easing via rAF) ---
-    function power2Out(t) {
-      return 1 - (1 - t) * (1 - t);
-    }
-
-    (function initCounters() {
-      document.querySelectorAll('.stat-card').forEach(function(card, i) {
-        var valEl = card.querySelector('.stat-value');
-        if (!valEl) return;
-        var target = parseFloat(valEl.getAttribute('data-target')) || 0;
-        var suffix = valEl.getAttribute('data-suffix') || '';
-
-        var counterObserver = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (!entry.isIntersecting) return;
-            counterObserver.unobserve(valEl);
-
-            var startTime = null;
-            var duration = 2000 + i * 100;
-
-            function animateCounter(now) {
-              if (!startTime) startTime = now;
-              var elapsed = now - startTime;
-              var progress = Math.min(elapsed / duration, 1);
-              var eased = power2Out(progress);
-              var current = eased * target;
-
-              if (target >= 1000 || Number.isInteger(target)) {
-                valEl.textContent = Math.round(current).toLocaleString() + suffix;
-              } else {
-                valEl.textContent = current.toFixed(1) + suffix;
-              }
-
-              if (progress < 1) {
-                requestAnimationFrame(animateCounter);
-              } else {
-                if (target >= 1000 || Number.isInteger(target)) {
-                  valEl.textContent = Math.round(target).toLocaleString() + suffix;
-                } else {
-                  valEl.textContent = target.toFixed(1) + suffix;
-                }
-              }
-            }
-
-            requestAnimationFrame(animateCounter);
-          });
-        }, { rootMargin: '0px 0px -100px 0px' });
-        counterObserver.observe(valEl);
-      });
-    })();
+    // --- Stat Counter (replaced by live war duration timer in render()) ---
 
     // --- War Data Morph Card — cycles through all entries with scramble ---
     (function initWarDataMorph() {
@@ -505,12 +456,9 @@ document.addEventListener('DOMContentLoaded', () => {
       gridRM.innerHTML = '<div class="sim-morph-card revealed" style="--gradient: ' + rm.gradient + '"><div class="morph-progress"><div class="morph-progress-fill" style="width:100%;background:' + rm.gradient + '"></div></div><div class="sim-morph-inner"><div class="sim-card-title">' + rm.title + '</div><div class="sim-card-subtitle">' + rm.subtitle + '</div>' + vhRM + '<div class="sim-card-desc">' + rm.description + '</div>' + ihRM + '<div class="sim-card-source">' + rm.source + '</div></div><div class="morph-dots"><span class="morph-dot active"></span><span class="morph-dot"></span><span class="morph-dot"></span><span class="morph-dot"></span></div></div>';
     }
 
-    document.querySelectorAll('.stat-value').forEach(function(el) {
-      var target = parseFloat(el.getAttribute('data-target')) || 0;
-      var suffix = el.getAttribute('data-suffix') || '';
-      if (target >= 1000) el.textContent = Math.round(target).toLocaleString() + suffix;
-      else if (Number.isInteger(target)) el.textContent = Math.round(target).toLocaleString() + suffix;
-      else el.textContent = target.toFixed(1) + suffix;
+    document.querySelectorAll('.duration-num').forEach(function(el) {
+      var text = el.textContent;
+      if (text && text.length <= 2) el.textContent = text;
     });
   }
 });

@@ -7,12 +7,10 @@ const UW = {
   },
 
   stats: [
-    { label: 'Civilian Deaths (UN Confirmed)', value: 10582, suffix: '+', icon: '⚰️', citation: 'UN OHCHR confirmed civilian deaths as of Jan 2026 (actual likely higher)' },
-    { label: 'Refugees Across Europe', value: 8.2, suffix: 'M', icon: '🚶', citation: 'UNHCR — 8.2 million Ukrainian refugees recorded across Europe (mid-2024)' },
-    { label: 'Internally Displaced', value: 3.7, suffix: 'M', icon: '🏠', citation: 'IOM — 3.7 million internally displaced persons within Ukraine (2024)' },
-    { label: 'Front Line Length', value: 1200, suffix: 'km', icon: '⚔️', citation: '~1,200 km active front line from Kharkiv Oblast to Kherson Oblast (2024)' },
-    { label: 'Military Aid to Ukraine', value: 267, suffix: 'B USD', icon: '💰', citation: 'Total international military & financial aid committed (Kiel Institute, Jan 2025)' },
-    { label: 'Territory Occupied (Peak)', value: 27, suffix: '%', icon: '🗺️', citation: '~27% of Ukraine occupied at peak (Mar 2022); reduced to ~18% by mid-2024' },
+    { label: 'Civilian Deaths', value: '10,500+', icon: '⚰️' },
+    { label: 'Refugees', value: '8.2M', icon: '🚶' },
+    { label: 'Front Line', value: '1,200km', icon: '⚔️' },
+    { label: 'Ongoing War', value: '3+ yrs', icon: '🔥' },
   ],
 
   timeline: [
