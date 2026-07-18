@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
       gridRM.innerHTML = '<div class="sim-morph-card revealed" style="--gradient: ' + rm.gradient + '"><div class="morph-progress"><div class="morph-progress-fill" style="width:100%;background:' + rm.gradient + '"></div></div><div class="sim-morph-inner"><div class="sim-card-title">' + rm.title + '</div><div class="sim-card-subtitle">' + rm.subtitle + '</div>' + vhRM + '<div class="sim-card-desc">' + rm.description + '</div>' + ihRM + '<div class="sim-card-source">' + rm.source + '</div></div><div class="morph-dots"><span class="morph-dot active"></span><span class="morph-dot"></span><span class="morph-dot"></span><span class="morph-dot"></span></div></div>';
     }
 
-    document.querySelectorAll('.duration-num').forEach(function(el) {
+    document.querySelectorAll('.hero-dur-num').forEach(function(el) {
       var text = el.textContent;
       if (text && text.length <= 2) el.textContent = text;
     });

@@ -47,12 +47,7 @@
       <div class="hero-tagline">February 24, 2022 — Ongoing</div>
       <h1 class="hero-title">The Ukraine<br><span class="accent">War</span></h1>
       <p class="hero-subtitle">Europe's largest armed conflict since World War II — a crisis that has reshaped the international order, redefined alliance politics, and tested every major theory of International Relations.</p>
-      <div class="hero-stats">
-        <div class="hero-stat"><div class="hero-stat-value">10,500+</div><div class="hero-stat-label">Civilian Deaths</div></div>
-        <div class="hero-stat"><div class="hero-stat-value">8.2M</div><div class="hero-stat-label">Refugees</div></div>
-        <div class="hero-stat"><div class="hero-stat-value">1,200km</div><div class="hero-stat-label">Front Line</div></div>
-        <div class="hero-stat"><div class="hero-stat-value">3+ yrs</div><div class="hero-stat-label">Ongoing War</div></div>
-      </div>
+      <div class="hero-duration" id="heroDuration"></div>
     </div>
     <div class="hero-scroll"><span>Scroll</span><div class="hero-scroll-line"></div></div>
   </section>
@@ -192,18 +187,22 @@
   // Data Renderer — runs synchronously, UW guaranteed
   // =============================================
   function render() {
-    // --- War Duration Counter ---
+    // --- War Duration Counter (hero) ---
+    var hd = document.getElementById('heroDuration');
     var sg = document.getElementById('statsGrid');
-    if (sg && typeof UW !== 'undefined') {
+    if (typeof UW !== 'undefined') {
       var start = UW.hero.eventStart;
-      function updateCounter() {
+      function updateDuration() {
         var now = new Date();
         var diff = now - start;
         var totalSeconds = Math.floor(diff / 1000);
         var totalMinutes = Math.floor(totalSeconds / 60);
         var totalHours = Math.floor(totalMinutes / 60);
-        var totalDays = Math.floor(totalHours / 24);
 
+        var sec = totalSeconds % 60;
+        var min = totalMinutes % 60;
+        var hrs = totalHours % 24;
+        var days = Math.floor(totalHours / 24);
         var years = now.getFullYear() - start.getFullYear();
         var monthDiff = now.getMonth() - start.getMonth();
         if (monthDiff < 0) { years--; monthDiff += 12; }
@@ -215,33 +214,37 @@
           months--;
           if (months < 0) { months += 12; years--; }
         }
-        var days = dayDiff;
-        var hours = totalHours % 24;
-        var minutes = totalMinutes % 60;
+        days = dayDiff;
 
-        sg.innerHTML =
-          '<div class="war-duration">' +
-            '<div class="duration-display">' +
-              '<span class="duration-unit"><span class="duration-num">' + years + '</span> yr</span>' +
-              '<span class="duration-sep">:</span>' +
-              '<span class="duration-unit"><span class="duration-num">' + String(months).padStart(2,'0') + '</span> mo</span>' +
-              '<span class="duration-sep">:</span>' +
-              '<span class="duration-unit"><span class="duration-num">' + String(days).padStart(2,'0') + '</span> days</span>' +
-              '<span class="duration-sep">:</span>' +
-              '<span class="duration-unit"><span class="duration-num">' + String(hours).padStart(2,'0') + '</span> hr</span>' +
-              '<span class="duration-sep">:</span>' +
-              '<span class="duration-unit"><span class="duration-num">' + String(minutes).padStart(2,'0') + '</span> min</span>' +
+        if (hd) {
+          hd.innerHTML =
+            '<div class="hero-duration-display">' +
+              '<span class="hero-dur-unit"><span class="hero-dur-num">' + years + '</span> yr</span>' +
+              '<span class="hero-dur-sep">:</span>' +
+              '<span class="hero-dur-unit"><span class="hero-dur-num">' + String(months).padStart(2,'0') + '</span> mo</span>' +
+              '<span class="hero-dur-sep">:</span>' +
+              '<span class="hero-dur-unit"><span class="hero-dur-num">' + String(days).padStart(2,'0') + '</span> days</span>' +
+              '<span class="hero-dur-sep">:</span>' +
+              '<span class="hero-dur-unit"><span class="hero-dur-num">' + String(hrs).padStart(2,'0') + '</span> hr</span>' +
+              '<span class="hero-dur-sep">:</span>' +
+              '<span class="hero-dur-unit"><span class="hero-dur-num">' + String(min).padStart(2,'0') + '</span> min</span>' +
+              '<span class="hero-dur-sep">:</span>' +
+              '<span class="hero-dur-unit"><span class="hero-dur-num">' + String(sec).padStart(2,'0') + '</span> sec</span>' +
             '</div>' +
-            '<div class="duration-label">Since February 24, 2022</div>' +
-          '</div>' +
-          '<div class="stats-grid-inner">' +
+            '<div class="hero-dur-label">Since February 24, 2022</div>';
+        }
+      }
+      updateDuration();
+      setInterval(updateDuration, 1000);
+
+      // --- Stats grid ---
+      if (sg) {
+        sg.innerHTML = '<div class="stats-grid-inner">' +
           UW.stats.map(function(s) {
             return '<div class="stat-card"><div class="stat-icon">' + s.icon + '</div><div class="stat-value">' + s.value + '</div><div class="stat-label">' + s.label + '</div></div>';
           }).join('') +
           '</div>';
       }
-      updateCounter();
-      setInterval(updateCounter, 60000);
     }
 
     // --- Timeline ---
